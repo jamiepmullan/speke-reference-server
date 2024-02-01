@@ -39,15 +39,33 @@ The following page guides the user through deployment and configuration of the S
 - An AWS account with administrator rights and access to the AWS console
 - Note that this solution can be deployed to any region that supports API Gateway, Lambda, and S3. You need to consider the packager or encoder's location relative to the API Gateway endpoint used to create encryption keys. The encoder, packager and SPEKE services should be in the same region or as geographically close as possible to reduce the request/response latency in key generation.
 
+### Build Script options
+
+| Option | Configuration | Description |
+| --- | --- | --- |
+| REQUIRES_SPEKE_SERVER_LAMBDA_LAYER | `true`, `false` or undefined | Optional: Ensures the build script creates and generates the Lambda Layer to run the server (ensure you have Docker running on your machine). |
+| BUCKET_NAME | String | Required: Bucket name of where you have uploaded your generated assets as describe below. |
+
+#### Examples
+
+##### Package locally with no Lambda Layer
+```
+./local_build.sh BUCKET_NAME=my-test-bucket
+```
+
+##### Generate files with Lambda Layer
+```
+./local_build.sh REQUIRES_SPEKE_SERVER_LAMBDA_LAYER=true BUCKET_NAME=my-test-bucket
+```
+
 ### Building Cloudformation template and Lambda locally
 
-1. Create a virtual environment for this project using python3 using steps outlined [here](https://docs.python.org/3/tutorial/venv.html).
+1. Create a virtual environment for this project using python3 using steps outlined [here](https://docs.python.org/3/tutorial/venv.html). When creating the virtual environment, ensure you use Python version compatible with the Runtime on the Lambda (in this case Python 9).
 1. Install dependencies within the virtual environment using `pip3 install -r requirements.txt`.
 1. In `zappa_settings.json` under `src`, replace `aws_region` with the region this lambda will be deployed.
 1. Run `local_build.sh`. If you are working on Mac/Windows, run the script with `REQUIRES_SPEKE_SERVER_LAMBDA_LAYER=true` to generate `speke-libs` lambda layer zip file. Note that Docker is required to build the zip file. See the [sidenote](#sidenote-building-the-lambda-on-macwindows) below for more details about the lambda layer.
 1. The script will generate required artifacts under `build` folder.
 1. Create a new bucket in S3 (For example: `speke-us-east-1`). Create a folder called `speke` and upload the generated `speke-reference` lambda zip file. If you build with `REQUIRES_SPEKE_SERVER_LAMBDA_LAYER=true`, upload the generated `speke-libs` lambda layer zip file to the same folder too. 
-1. In the generated `speke_reference.json`, replace `rodeolabz` with the name of your created bucket (`speke` is used in this example).
 1. Use the `speke_reference.json` template in CloudFormation to deploy the speke reference server following the instructions below.
 
 #### **Sidenote:** Building the lambda on Mac/Windows
