@@ -60,7 +60,7 @@ The following page guides the user through deployment and configuration of the S
 
 ### Building Cloudformation template and Lambda locally
 
-1. Create a virtual environment for this project using python3 using steps outlined [here](https://docs.python.org/3/tutorial/venv.html). When creating the virtual environment, ensure you use Python version compatible with the Runtime on the Lambda (in this case Python 9).
+1. Create a virtual environment for this project using python3 using steps outlined [here](https://docs.python.org/3/tutorial/venv.html). When creating the virtual environment, ensure you use Python version compatible with the Runtime on the Lambda (in this case Python 3.9).
 1. Install dependencies within the virtual environment using `pip3 install -r requirements.txt`.
 1. In `zappa_settings.json` under `src`, replace `aws_region` with the region this lambda will be deployed.
 1. Run `local_build.sh`. If you are working on Mac/Windows, run the script with `REQUIRES_SPEKE_SERVER_LAMBDA_LAYER=true` to generate `speke-libs` lambda layer zip file. Note that Docker is required to build the zip file. See the [sidenote](#sidenote-building-the-lambda-on-macwindows) below for more details about the lambda layer.
