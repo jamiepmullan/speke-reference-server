@@ -241,12 +241,6 @@
                         },
                         "WIDEVINE_HLS_SIGNALING_DATA_MASTER": {
                             "Ref": "WidevineHlsSignalingDataMaster"
-                        },
-                        "FAIRPLAY_HLS_SIGNALING_DATA_MEDIA": {
-                            "Ref": "FairplayHlsSignalingDataMedia"
-                        },
-                        "FAIRPLAY_HLS_SIGNALING_DATA_MASTER": {
-                            "Ref": "FairplayHlsSignalingDataMaster"
                         }
                     }
                 },
@@ -674,16 +668,6 @@
         "WidevineHlsSignalingDataMaster": {
             "Default": "",
             "Description": "Encoded Widevine HlsSignalingData for master (ext-x-session-key) that is included in the encrypted content and is supported in Speke V2.0 only",
-            "Type": "String"
-        },
-        "FairplayHlsSignalingDataMedia": {
-            "Default": "",
-            "Description": "Encoded Fairplay HlsSignalingData for media (ext-x-key) that is included in the encrypted content and is supported in Speke V2.0 only",
-            "Type": "String"
-        },
-        "FairplayHlsSignalingDataMaster": {
-            "Default": "",
-            "Description": "Encoded Fairplay HlsSignalingData for master (ext-x-session-key) that is included in the encrypted content and is supported in Speke V2.0 only",
             "Type": "String"
         }
     },
